@@ -1,3 +1,10 @@
+const rows = Array.from(document.querySelectorAll('.table-row'));
+rows.forEach(row => {
+    for (let i = 0; i < 3; i++) {
+        row.appendChild(createColumn());
+        document.body.appendChild(row);
+    }
+});
 const columns = Array.from(document.querySelectorAll('.table-column'));
 let previous = 'X';
 
@@ -13,7 +20,14 @@ function renderMarkPlayer(element) {
 }
 
 function getMark() {
-    console.log(previous);
     const mark = previous === 'X' ? 'O': 'X';
     return mark;
+}
+
+function createColumn() {
+    const column = document.createElement('div');
+    column.className = 'table-column';
+    column.textContent = ' - ';
+    return column;
+
 }
