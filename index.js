@@ -1,3 +1,13 @@
+
+/**
+ * [
+ *  [0,0,0],
+ *  [0,0,0],
+ *  [0,0,0],
+ * ]
+ * combination = [ [[0,0],[0,1], 0,2], [[0,0], [1,1], [2,2]], [ ]]
+ */
+
 const rows = Array.from(document.querySelectorAll('.table-row'));
 rows.forEach(row => {
     for (let i = 0; i < 3; i++) {
@@ -10,7 +20,8 @@ let previous = 'X';
 
 columns.forEach(column => {
     column.addEventListener('click', () => {
-        return renderMarkPlayer(column)
+        renderMarkPlayer(column)
+        checkWinner();
     });
 })
 
@@ -30,4 +41,11 @@ function createColumn() {
     column.textContent = ' - ';
     return column;
 
+}
+
+function checkWinner() {
+    const map = rows.map((row) => {
+        return Array.from(row.childNodes);
+    })
+    const first = map[0][0];
 }
