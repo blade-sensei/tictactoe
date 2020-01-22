@@ -1,0 +1,12 @@
+.table-row {
+  border: solid black 2px;  
+  border-width: 5px;
+  margin-bottom: 3px;
+}
+
+.table-column {
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+    border-left: solid black 1px;
+}
