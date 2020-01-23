@@ -5,8 +5,20 @@
  *  [0,0,0],
  *  [0,0,0],
  * ]
- * combination = [ [[0,0],[0,1], 0,2], [[0,0], [1,1], [2,2]], [ ]]
+ * combination = [
+ * [[0,0],[0,1], 0,2], [[0,0], [1,1], [2,2]], [ ]]
  */
+
+ const winnerCombinations = [
+     [ [0,0], [0,1], [0,2] ],
+     [ [1,0], [1,1], [1,2] ],
+     [ [2,0], [2,1], [2,2] ],
+     [ [0,0], [1,0], [2,0]],
+     [ [0,1], [1,1], [2,1]],
+     [ [0,2], [1,2], [2,2]],
+     [ [0,0], [1,1], [2,2]],
+     [ [2,0], [1,1], [0,2]],
+ ]
 
 const rows = Array.from(document.querySelectorAll('.table-row'));
 rows.forEach(row => {
@@ -21,7 +33,9 @@ let previous = 'X';
 columns.forEach(column => {
     column.addEventListener('click', () => {
         renderMarkPlayer(column)
-        checkWinner();
+        if (checkWinner()) {
+            alert(`winner ${previous} player`);
+        }
     });
 })
 
@@ -46,6 +60,22 @@ function createColumn() {
 function checkWinner() {
     const map = rows.map((row) => {
         return Array.from(row.childNodes);
-    })
-    const first = map[0][0];
+    });
+
+    for (combination of winnerCombinations) {
+        const extractedCardinates = [];
+        console.log(combination);
+        for (cardinates of combination) {
+            const [row, column] = cardinates;
+            extractedCardinates.push(map[row][column]);
+        }
+        const combinationCompleted = extractedCardinates.every(cardinate => {
+            return cardinate.textContent === previous;
+        });
+
+        if (combinationCompleted) {
+            return true;
+        }
+    }
+    return false;
 }

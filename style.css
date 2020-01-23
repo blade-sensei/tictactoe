@@ -1,12 +1,14 @@
 .table-row {
   border: solid black 2px;  
-  border-width: 5px;
+  border-width: 2px;
   margin-bottom: 3px;
 }
 
 .table-column {
     display: inline-block;
-    width: 32%;
+    width: 33.1%;
+    height: 30px;
     text-align: center;
     border-left: solid black 1px;
+    background-color: aquamarine;
 }
