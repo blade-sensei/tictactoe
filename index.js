@@ -20,6 +20,29 @@
      [ [2,0], [1,1], [0,2]],
  ]
 
+
+ const board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+]
+
+ const game = {
+     board,
+     scores: {
+         'player1': 0,
+         'player2': 0,
+         'draw': 0,
+     }
+ }
+
+const test = JSON.parse(JSON.stringify(game));
+
+game.board[0][0] = 'X';
+
+const equal = JSON.stringify(test) === JSON.stringify(game);
+
+
 const rows = Array.from(document.querySelectorAll('.table-row'));
 rows.forEach(row => {
     for (let i = 0; i < 3; i++) {
