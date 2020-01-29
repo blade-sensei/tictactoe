@@ -28,19 +28,35 @@
 ]
 
  const game = {
-     board,
-     scores: {
+     _board: board,
+     _scores: {
          'player1': 0,
          'player2': 0,
          'draw': 0,
-     }
+     },
+     set board(value) {
+        console.log('ok');
+        this._board = value;
+    },
+    get board() {
+        return this._board;
+    },
+
+    set scores(value) {
+        console.log(this);
+        console.log('scores');
+        this._scores = value;
+    },
+
+    get scores() {
+        return this._scores;
+    }
  }
 
-const test = JSON.parse(JSON.stringify(game));
+ game.scores = {};
 
-game.board[0][0] = 'X';
 
-const equal = JSON.stringify(test) === JSON.stringify(game);
+//const equal = JSON.stringify(game) === JSON.stringify(test);
 
 
 const rows = Array.from(document.querySelectorAll('.table-row'));
@@ -52,6 +68,8 @@ rows.forEach(row => {
 });
 const columns = Array.from(document.querySelectorAll('.table-column'));
 let previous = 'X';
+
+console.log(columns);
 
 columns.forEach(column => {
     column.addEventListener('click', () => {
