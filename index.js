@@ -20,6 +20,11 @@
      [ [2,0], [1,1], [0,2]],
  ]
 
+ const PLAYERS = {
+     first : 'player1',
+     second: 'player2'
+ }
+
 
  const board = [
     ['', '', ''],
@@ -28,6 +33,7 @@
 ]
 
  const game = {
+    currentPlayerTurn: 'player1',
      _board: board,
      _scores: {
          'player1': 0,
@@ -50,49 +56,62 @@
 
     get scores() {
         return this._scores;
-    }
+    },
  }
 
  game.scores = {};
-
 
 //const equal = JSON.stringify(game) === JSON.stringify(test);
 
 
 const rows = Array.from(document.querySelectorAll('.table-row'));
-rows.forEach(row => {
+
+createSquaresInEachRow(rows);
+
+function createSquaresInEachRow(rows) {
+    for (let squareRowId = 0;  squareRowId < rows.length; squareRowId++) {
+        let row = rows[squareRowId];
+        createSquareInRow(row, squareRowId);
+    }
+}
+
+function createSquareInRow(row, rowNumber) {
     for (let i = 0; i < 3; i++) {
-        row.appendChild(createColumn());
+        row.appendChild(createSquare(rowNumber, i));
         document.body.appendChild(row);
     }
-});
-const columns = Array.from(document.querySelectorAll('.table-column'));
-let previous = 'X';
+}
 
-console.log(columns);
+const squares = Array.from(document.querySelectorAll('.square'));
 
-columns.forEach(column => {
-    column.addEventListener('click', () => {
-        renderMarkPlayer(column)
-        if (checkWinner()) {
-            alert(`winner ${previous} player`);
-        }
-    });
-})
+setSquareEventListener(squares);
+
+function setSquareEventListener(squares) {
+    squares.forEach(square => {
+        square.addEventListener('click', (event) => {
+            game.currentPlayerTurn = getNextPlayerTurn(game.currentPlayerTurn);
+            renderMarkPlayer(square)
+            if (checkWinner()) {
+                alert(`winner ${previous} player`);
+            }
+        });
+    })
+}
 
 function renderMarkPlayer(element) {
-    previous = getMark();
-    element.textContent = previous;
+    element.textContent = game.currentPlayerTurn;
 }
 
-function getMark() {
-    const mark = previous === 'X' ? 'O': 'X';
-    return mark;
+function getNextPlayerTurn(currentPlayerTurn) {
+    
+    return currentPlayerTurn === PLAYERS.first ? PLAYERS.second  : PLAYERS.first;
+    
 }
 
-function createColumn() {
+function createSquare(rowNumber, columnNumber) {
     const column = document.createElement('div');
-    column.className = 'table-column';
+    column.className = 'square';
+    column.id = `${rowNumber}-${columnNumber}`;
     column.textContent = ' - ';
     return column;
 
