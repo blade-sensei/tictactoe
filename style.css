@@ -1,14 +1,20 @@
-.table-row {
+.square-row {
   border: solid black 2px;  
   border-width: 2px;
   margin-bottom: 3px;
+  display: table-row;
+}
+
+.square-container {
+  display: table;
 }
 
 .square {
-    display: inline-block;
-    width: 33.1%;
-    height: 30px;
+    display: table-cell;
+    width: 100px;
+    height: 100px;
     text-align: center;
-    border-left: solid black 1px;
+    border: solid black 1px;
     background-color: aquamarine;
+    vertical-align: middle;
 }
